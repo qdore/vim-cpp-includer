@@ -48,6 +48,18 @@ function s:addIncludeDirective(s)
   let lastIncludeLine = 0
   let i = 0
   for line in lines
+    if line =~ '*'
+        let lastIncludeLine += 1
+    else
+        if lastIncludeLine == "0"
+            break
+        else
+            let lastIncludeLine += 1
+            break
+        endif
+    endif
+  endfor
+  for line in lines
     let i += 1
     let re = '^\s*#include\s\+\(\S\+\)\s*$'
     if line =~# re
@@ -60,5 +72,9 @@ function s:addIncludeDirective(s)
     endif
   endfor
   call append(lastIncludeLine, '#include ' . a:s)
+  if get(lines, lastIncludeLine) != ''
+    let lastIncludeLine += 1
+    call append(lastIncludeLine, '')
+  endif
   redraw | echohl MoreMsg | echomsg 'OK, included ' . a:s | echohl None
 endfunction
