@@ -1,4 +1,4 @@
-nnoremap <buffer> <leader>i :<C-u>CppInclude<CR>
+nnoremap <buffer> <C-i> :<C-u>CppInclude<CR>
 
 if exists(':CppInclude')
   finish
