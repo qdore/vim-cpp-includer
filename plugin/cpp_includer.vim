@@ -71,7 +71,14 @@ function s:addIncludeDirective(s)
       endif
     endif
   endfor
-  let lastIncludeLine = 16
+
+  let lastIncludeLine = 15
+  echomsg get(lines, lastIncludeLine)
+  while get(lines, lastIncludeLine) != ''
+    let lastIncludeLine += 1
+  endwhile
+  let lastIncludeLine += 1
+
   call append(lastIncludeLine, '#include ' . a:s)
   let re = '^\s*#include\s\+\(\S\+\)\s*$'
   if get(lines, lastIncludeLine) != ''
